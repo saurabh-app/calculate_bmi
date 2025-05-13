@@ -10,12 +10,60 @@ class ResultsScreen extends StatefulWidget {
 }
 
 class _ResultsScreenState extends State<ResultsScreen> {
+  var bmiColor = Colors.white;
+  var bmiText = 'Normal';
+  var imagepath = 'normal';
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    updateUI();
+  }
+
+  updateUI() {
+    var bmi = widget.bmiResult;
+    if (bmi < 18) {
+      setState(() {
+        bmiColor = Colors.lightBlueAccent;
+        bmiText = 'Underweight';
+        imagepath = 'underweight';
+      });
+    } else if (bmi >= 18 && bmi <= 25) {
+      setState(() {
+        bmiColor = Colors.green;
+        bmiText = 'Normal';
+        imagepath = 'normal';
+      });
+    } else if (bmi > 26 && bmi <= 30) {
+      setState(() {
+        bmiColor = Colors.yellowAccent;
+        bmiText = 'OverWeight';
+        imagepath = 'overweight';
+      });
+    } else if (bmi > 31 && bmi <= 35) {
+      setState(() {
+        bmiColor = Colors.yellowAccent;
+        bmiText = 'Obese';
+        imagepath = 'obese';
+      });
+    } else if (bmi >= 36) {
+      setState(() {
+        bmiColor = Colors.red;
+        bmiText = 'ExtremeObese';
+        imagepath = 'extreme';
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: AppBar(title: Text("Result Screen")),
+      appBar: AppBar(title: Text("Result Screen"),
+       backgroundColor: darkBlueColor,),
+       backgroundColor: darkBlueColor,
       body: Column(
         children: [
           Container(
@@ -29,15 +77,15 @@ class _ResultsScreenState extends State<ResultsScreen> {
               children: [
                 Text("Your BMI value is", style: textStyle),
                 Text('${widget.bmiResult}', style: textStyle),
-                Text("Normal", style: textStyle),
+                Text('${bmiText}', style: textStyle.copyWith(color: bmiColor)),
               ],
             ),
           ),
-          Image.asset('images/normal.png',height: height*0.55,),
-            GestureDetector(
+          Image.asset('images/${imagepath}.png', height: height * 0.55),
+          GestureDetector(
             onTap: () {
               Navigator.pop(context);
-             },
+            },
             child: Container(
               height: 50,
               margin: EdgeInsets.all(8),
