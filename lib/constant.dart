@@ -9,7 +9,7 @@ const numtextStyle = TextStyle(
 const textStyle = TextStyle(
   fontSize: 35,
   fontWeight: FontWeight.bold,
-  color: Colors.white,
+  color: Colors.white70,
 );
 
 const backgroundColor = Color(0xFF131145);
